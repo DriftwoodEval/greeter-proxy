@@ -1,0 +1,18 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-greeter-proxy
+    command: tunnel --no-autoupdate run --token
+      ${CF_TOKEN}
+    restart: always
+
+  greeter-proxy:
+    image: ghcr.io/driftwoodeval/greeter-proxy:latest
+    container_name: greeter-proxy
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./database.sqlite:/app/database.sqlite
+    depends_on:
+      - cloudflared
