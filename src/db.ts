@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 
-const db = new Database("database.sqlite", { verbose: console.log });
+const db = new Database("database.sqlite");
 
 // Initialize Tables if they don't exist
 const initDb = () => {
